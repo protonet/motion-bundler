@@ -127,7 +127,9 @@ private
     object.replace(
       if object.is_a?(Array)
         object.inject(Set.new) do |a, v|
-          a << File.expand_path(v)
+          [*v].each do |v|
+            a << File.expand_path(v)
+          end
           a
         end.to_a.partition do |v|
           (v == MOTION_BUNDLER_FILE) || !v.include?(PROJECT_PATH)
